@@ -66,3 +66,70 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.adiv {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  color: #000;
+}
+
+.anotherdiv {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
+.parent {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+grid-template-rows: repeat(3, 1fr);
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+border-color: #fefefe;
+}
+
+h2 {
+  color: red;
+}
+
+h1 {
+  color: green;
+}
+
+.typecontainer {
+  border-color: #000;
+  background-color: #646cff;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  gap: 2rem;
+  border-color:deeppink;
+  border-width: 4px;
+}
+
+.relationpara {
+  font-weight: bold;
+  color: purple;
+}
+
+.namesprite {
+  width: 120px;
+}
+
+.spritesinrel {
+  width: 70px;
+}
+
+
+.typecard {
+  background-color: #7bd647;
+  border-color: red;
+  border-width: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.hide {
+  display: none;
+}
