@@ -47,10 +47,10 @@ async function fetchTypesList(url) {
             // Example: Main type normal, then show damage relations to normal
 
             // h2 Title for Main Type
-            const nameh2 = document.createElement("h2");
-            nameh2.className = "nameh2";
-            nameh2.textContent = typename;
-            typeheader.appendChild(nameh2);
+            // const nameh2 = document.createElement("h2");
+            // nameh2.className = "nameh2";
+            // nameh2.textContent = typename;
+            // typeheader.appendChild(nameh2);
 
             // Sprite for Main type
             const namesprite = document.createElement("img");
@@ -66,6 +66,10 @@ async function fetchTypesList(url) {
                 relationpara.className = "relationpara";
                 relationpara.textContent = `${typeofrelation.replace(/_/g, ' ')}:`;
                 typecard.appendChild(relationpara);
+
+                // Create element that holds sprites in relation
+                const relspritecontainer = document.createElement("div");
+                relspritecontainer.className = "relspritecontainer";
                 
                 relationslist.forEach(relation => {
                     // const typesinrel = document.createElement("p");
@@ -77,10 +81,13 @@ async function fetchTypesList(url) {
                     const reltypedetails = typedetails.find(relatedtype => relatedtype.name === relation.name);
                     const relatedspriteurl = reltypedetails.sprites["generation-ix"]["scarlet-violet"].name_icon;
 
+
+                    
                     const spritesinrel = document.createElement("img");
                     spritesinrel.className = "spritesinrel";
                     spritesinrel.src = relatedspriteurl;
-                    typecard.appendChild(spritesinrel);
+                    relspritecontainer.appendChild(spritesinrel);
+                    typecard.appendChild(relspritecontainer);
                 });
             });
 
