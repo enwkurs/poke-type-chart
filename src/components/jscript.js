@@ -19,11 +19,21 @@ async function fetchTypesList(url) {
         );
 
         // Look for element in HTML elements to render to
-        const htmlrender = document.querySelector('#typecontainer'); // main container
+        // const htmlrender = document.querySelector('#typecontainer'); // main container RESTORE THIS IF I BREAK IT
+        const htmlrender = document.querySelector("#typegrids"); // THIS IS NEW
+
+        // THIS IS NEW FOR THE 3 COLUMN METHOD
+        const columns = [
+            document.querySelector("#typecontainer"),
+            document.querySelector("#typecol2"),
+            document.querySelector("#typecol3"),
+        ];
+        // -----------------------------------------
+
         if (!htmlrender) return; // If htmlrender is not found, skip to return
 
         // Get name and damage relations info using the typedetails promise
-        typedetails.forEach(typeinfo => {
+        typedetails.forEach((typeinfo, i) => {
             // Create a div that holds everything from each type as its own group
             const typeholder = document.createElement("div");
             typeholder.className = "typeholder";
@@ -33,6 +43,7 @@ async function fetchTypesList(url) {
             typeheader.className = "typeheader";
             typeheader.addEventListener("click", function() {
                 typecard.classList.toggle("hide");
+                typeholder.classList.toggle("showbg");
             });
 
             // Create a div to hold each type's details in its own card
@@ -62,10 +73,17 @@ async function fetchTypesList(url) {
             Object.entries(damagerelations).forEach(([typeofrelation, relationslist]) => {
                 if (relationslist.length === 0) return;
 
+                // Create a div to group damage relations text together with images
+                const relationcontainer = document.createElement("div");
+                relationcontainer.className = "relationcontainer";
+
                 const relationpara = document.createElement("p");
                 relationpara.className = "relationpara";
-                relationpara.textContent = `${typeofrelation.replace(/_/g, ' ')}:`;
-                typecard.appendChild(relationpara);
+                relationpara.textContent = `${typeofrelation.replace(/_/g, ' ')
+                                            .replace(/\b\w/g, firstletter => firstletter.toUpperCase())}:`;
+                                            // \b\w means "the first character of each word"
+
+                relationcontainer.appendChild(relationpara);
 
                 // Create element that holds sprites in relation
                 const relspritecontainer = document.createElement("div");
@@ -87,16 +105,22 @@ async function fetchTypesList(url) {
                     spritesinrel.className = "spritesinrel";
                     spritesinrel.src = relatedspriteurl;
                     relspritecontainer.appendChild(spritesinrel);
-                    typecard.appendChild(relspritecontainer);
+                    relationcontainer.appendChild(relspritecontainer);
+                    
+                    typecard.appendChild(relationcontainer);
                 });
             });
 
 
 
             // Trying to append things in the place  I want
+
             typeholder.appendChild(typeheader);
             typeholder.appendChild(typecard);
-            htmlrender.appendChild(typeholder);
+
+            columns[i % 3].appendChild(typeholder);
+
+            // htmlrender.appendChild(typeholder);
         });
 
     } catch (error) {
@@ -106,3 +130,10 @@ async function fetchTypesList(url) {
 
 // Run the script to make it show on the page
 fetchTypesList('https://pokeapi.co/api/v2/type?limit=18&offset=0');
+
+
+// Need a container to hold the relationpara together with the relsprite so they can be separated a bit more in css
+// typecard >
+// relationcontainer >
+// - relationpara
+// - relspritecontainer

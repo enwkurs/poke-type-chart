@@ -1,3 +1,11 @@
+/* ----- Get rid of ALL padding and margins ----- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* ----- Begone useless spaces I did not ask for ----- */
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -23,7 +31,7 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   place-items: center;
@@ -99,15 +107,62 @@ h1 {
   color: green;
 }
 
+.typegrids {
+  width: 90vw;
+  display: grid;
+  grid-template-columns: 20rem 20rem 20rem;
+  /* display: flex; */
+  justify-content: center;
+  gap: .5rem;
+}
+
 .typecontainer {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 20rem 20rem 20rem;
+    width: 90vw;
+    gap: .5rem; */
+    display: grid;
+    /* grid-template-columns: 20rem; */
+    grid-auto-rows: min-content;
     gap: .5rem;
+    justify-content: center;
+}
+
+.typecol2 {
+    display: grid;
+    /* grid-template-columns: 20rem; */
+    grid-auto-rows: min-content;
+    gap: .5rem;
+    justify-content: center;
+}
+
+.typecol3 {
+    display: grid;
+    /* grid-template-columns: 20rem; */
+    grid-auto-rows: min-content;
+    gap: .5rem;
+    justify-content: center;
+}
+
+.typeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 20rem;
+}
+
+.typeheader {
+      background-color: #2e2e2e;
+    border-radius: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .relationpara {
-  font-weight: bold;
-  color: purple;
+  font-weight: 500;
+  color: #eaeaea;
 }
 
 .namesprite {
@@ -116,16 +171,19 @@ h1 {
 }
 
 .spritesinrel {
-  width: 70px;
+  width: 90px;
 }
 
 .typecard {
-  background-color: #7bd647;
-  border-color: red;
-  border-width: 2px;
+  background-color: #2e2e2e;
+  border: 2px solid #373737;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
   width: 100%;
+  line-height: 2;
 }
 
 .hide {
@@ -134,14 +192,56 @@ h1 {
 
 .relspritecontainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 2px;
+  gap: .5rem;
 }
 
-.typeholder {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+.showbg {
+  background-color: #2e2e2e;
+  border-radius: 15px;
 }
+
+.relationcontainer {
+  background-color: #373737;
+  display: flex;
+  flex-direction: column;
+  padding: .5rem;
+  border-radius: 15px;
+}
+
+
+
+/* ------------------ MEDIA QUERIES --------------------------- */
+
+/* Mobile - 1 Column */
+@media (max-width: 500px ) {
+
+  .typegrids {
+    grid-template-columns: 95vw;
+    gap: .5rem;
+}
+}
+
+/* Tablet - 2 Columns */
+@media (min-width: 501px ) and (max-width: 1023px) {
+
+  .typegrids {
+    grid-template-columns: 95vw;
+    gap: .5rem;
+}
+}
+
+/* Have to rethink how media queries will function with the new 3 column layout
+
+Key issues:
+- Content is generated and inserted in a round robin method
+IE: 3 colums
+1, 2, 3
+1, 2, 3
+
+This keeps the type order correct when there is 3 columns and 6 rows
+
+Just changing the display position of each column for each breakpoint would result in the data being out of order
+( Not the biggest issue as the order doesn't effect much, but there is an "expected standard order" for types I would like to keep )
+*/
