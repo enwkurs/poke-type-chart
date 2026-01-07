@@ -98,8 +98,6 @@ async function fetchTypesList(url) {
                     // use find() to get sprites for related damage instead of fetching again
                     const reltypedetails = typedetails.find(relatedtype => relatedtype.name === relation.name);
                     const relatedspriteurl = reltypedetails.sprites["generation-ix"]["scarlet-violet"].name_icon;
-
-
                     
                     const spritesinrel = document.createElement("img");
                     spritesinrel.className = "spritesinrel";
